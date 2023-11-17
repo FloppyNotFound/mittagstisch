@@ -26,7 +26,7 @@ const toLunch = (html: string, dayOfWeek: number): Lunch | undefined => {
 	const dom = parse(html);
 	const rootNodes = dom.querySelector('.content_main_dho')?.getElementsByTagName('p');
 
-	const map: Record<string, string> = {};
+	const foodPerDay: Record<string, string> = {};
 	rootNodes?.forEach((dayNode) => {
 		const day = dayNode.getElementsByTagName('strong');
 		if (!day.length) {
@@ -39,29 +39,33 @@ const toLunch = (html: string, dayOfWeek: number): Lunch | undefined => {
 		}
 
 		const dayName = day[0].text.trim();
-
-		map[dayName] = food[0].innerHTML
+		foodPerDay[dayName] = food[0].innerHTML
 			.split('</strong>')[1]
 			.split('<br>')
+			// First <br> is an empty item and can be skipped
 			.filter((_, i) => !!i)
 			.join('<br>');
 	});
 
-	const lunch: Lunch = Object.keys(map)
+	const lunch = Object.keys(foodPerDay)
 		.filter((key) => key === dayOfWeekBic)
 		.map((key) => {
-			const food = map[key];
+			const food = foodPerDay[key];
 
-			return {
-				bistroName: `Bistro BIC`,
-				meal: food,
-				pdfLink: '',
-				price: '',
-				status: '',
-			};
+			return toLunchModel(food);
 		})[0];
 
 	return lunch;
+};
+
+const toLunchModel = (food: string): Lunch => {
+	return {
+		bistroName: `Bistro BIC`,
+		meal: food,
+		pdfLink: '',
+		price: '',
+		status: '',
+	};
 };
 
 export default getLunch;
