@@ -11,8 +11,9 @@ enum WeekOfDayMap {
 	'Samstag',
 }
 
+const url = 'http://www.bistro-bic.de/Speiseplan/';
+
 const getLunch = async (dayOfWeek: number): Promise<Lunch | undefined> => {
-	const url = 'http://www.bistro-bic.de/Speiseplan/';
 	const fetchResponse = await fetch(url);
 	const html = await fetchResponse.text();
 	const bic = toLunch(html, dayOfWeek);
