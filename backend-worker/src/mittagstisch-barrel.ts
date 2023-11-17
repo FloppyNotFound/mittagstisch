@@ -1,15 +1,16 @@
 import { Lunch } from './models/lunch.interface';
-import getLunch from './restaurants/bistro-bic';
+import bicLunch from './restaurants/bistro-bic';
+
+const restaurants: [Restaurant] = [
+	{
+		getLunch: bicLunch,
+	},
+];
 
 export default {
 	async fetch(dayOfWeek: number, request: Request, env: Env, ctx: ExecutionContext): Promise<Lunch[]> {
-		const lunches: Lunch[] = [];
+		const lunches = await Promise.all(restaurants.map((res) => res.getLunch(dayOfWeek)));
 
-		const bic = await getLunch(dayOfWeek);
-		if (bic) {
-			lunches.push(bic);
-		}
-
-		return lunches;
+		return lunches.filter((l) => !!l).map((l) => <Lunch>l);
 	},
 };
