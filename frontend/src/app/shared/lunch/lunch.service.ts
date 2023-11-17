@@ -7,13 +7,13 @@ import { Lunch } from './lunch';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LunchService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public get(route: string): Observable<Array<Lunch>> {
-    return this.http.get<Array<Lunch>>(environment.api + route);
+    const url = new URL(route, environment.api).href;
+    return this.http.get<Array<Lunch>>(url);
   }
 }

@@ -1,5 +1,5 @@
 export const environment = {
-  api: 'http://localhost:8080/api/',
+  api: 'http://localhost:8787/',
   appname: 'Mittagstisch',
   defaultRoute: 'dashboard',
   production: false,
