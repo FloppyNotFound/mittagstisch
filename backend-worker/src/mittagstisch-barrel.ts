@@ -1,14 +1,13 @@
 import { Lunch } from './models/lunch.interface';
-import toLunch from './restaurants/bistro-bic';
+import getLunch from './restaurants/bistro-bic';
 
 export default {
 	async fetch(dayOfWeek: number, request: Request, env: Env, ctx: ExecutionContext): Promise<Lunch[]> {
-		const url = 'http://www.bistro-bic.de/Speiseplan/';
-		const fetchResponse = await fetch(url);
-		const html = await fetchResponse.text();
+		const lunches: Lunch[] = [];
 
-		const res: Lunch[] = [toLunch(html, dayOfWeek)];
+		const bic = await getLunch(dayOfWeek);
+		lunches.push(bic);
 
-		return res;
+		return lunches;
 	},
 };
