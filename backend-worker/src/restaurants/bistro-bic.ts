@@ -26,9 +26,12 @@ const toLunch = (html: string, dayOfWeek: number): Lunch | undefined => {
 
 	const dom = parse(html);
 	const rootNodes = dom.querySelector('.content_main_dho')?.getElementsByTagName('p');
+	if (!rootNodes) {
+		return void 0;
+	}
 
 	const foodPerDay: Record<string, string> = {};
-	rootNodes?.forEach((dayNode) => {
+	rootNodes.forEach((dayNode) => {
 		const day = dayNode.getElementsByTagName('strong');
 		if (!day.length) {
 			return;
