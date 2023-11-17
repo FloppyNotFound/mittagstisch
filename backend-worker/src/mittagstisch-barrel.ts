@@ -6,7 +6,9 @@ export default {
 		const lunches: Lunch[] = [];
 
 		const bic = await getLunch(dayOfWeek);
-		lunches.push(bic);
+		if (bic) {
+			lunches.push(bic);
+		}
 
 		return lunches;
 	},
