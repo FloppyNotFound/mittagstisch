@@ -11,7 +11,7 @@ const getLunch = async (dayOfWeek: number): Promise<Lunch | undefined> => {
 	return bic;
 };
 
-const toLunch = (html: string, _: number) => {
+const toLunch = (html: string, _: number): Lunch | undefined => {
 	const dom = parse(html);
 
 	const pdfButton = dom.querySelector('.wixui-button');
