@@ -11,7 +11,7 @@ const getLunch = async (dayOfWeek: number): Promise<Lunch | undefined> => {
 	return bic;
 };
 
-function toLunch(html: string, dayOfWeek: number): Lunch | undefined {
+const toLunch = (html: string, dayOfWeek: number): Lunch | undefined => {
 	const dom = parse(html);
 
 	const pdfHref = toPdfHref(dom) ?? '';
@@ -19,7 +19,7 @@ function toLunch(html: string, dayOfWeek: number): Lunch | undefined {
 	const lunch = toLunchModel('', pdfHref);
 
 	return lunch;
-}
+};
 
 const toPdfHref = (dom: HTMLElement): string | undefined => {
 	const pdfRootNode = dom.querySelector('.wdn-pricelist-links');
