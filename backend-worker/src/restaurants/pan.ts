@@ -1,4 +1,4 @@
-import parse from 'node-html-parser';
+import parse, { HTMLElement } from 'node-html-parser';
 import { Lunch } from '../models/lunch.interface';
 
 const url = 'https://www.pan-leipzig.de/SPEISEKARTEN/Mittag/';
@@ -14,6 +14,14 @@ const getLunch = async (dayOfWeek: number): Promise<Lunch | undefined> => {
 function toLunch(html: string, dayOfWeek: number): Lunch | undefined {
 	const dom = parse(html);
 
+	const pdfHref = toPdfHref(dom) ?? '';
+
+	const lunch = toLunchModel('', pdfHref);
+
+	return lunch;
+}
+
+const toPdfHref = (dom: HTMLElement): string | undefined => {
 	const pdfRootNode = dom.querySelector('.wdn-pricelist-links');
 	const links = pdfRootNode?.getElementsByTagName('a');
 
@@ -28,10 +36,8 @@ function toLunch(html: string, dayOfWeek: number): Lunch | undefined {
 
 	const pdfHref = new URL(pdfUrl, url).href;
 
-	const lunch = toLunchModel('', pdfHref);
-
-	return lunch;
-}
+	return pdfHref;
+};
 
 const toLunchModel = (food: string, pdfHref: string): Lunch => {
 	return {
