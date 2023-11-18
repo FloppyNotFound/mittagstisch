@@ -17,10 +17,10 @@ export default {
 		// You can get pretty far with simple logic like if/switch-statements
 		switch (url.pathname) {
 			case '/today':
-				json = await mittagstischBarrel.fetch(dayOfWeek, request, env, ctx);
+				json = await mittagstischBarrel.fetch(dayOfWeek);
 				break;
 			case '/tommorow':
-				json = await mittagstischBarrel.fetch(dayOfWeek, request, env, ctx);
+				json = await mittagstischBarrel.fetch(dayOfWeek);
 				break;
 			default:
 				json = [];
