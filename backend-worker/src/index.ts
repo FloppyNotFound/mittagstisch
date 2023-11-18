@@ -19,7 +19,7 @@ export default {
 			case '/today':
 				json = await mittagstischBarrel.fetch(dayOfWeek);
 				break;
-			case '/tommorow':
+			case '/tomorrow':
 				json = await mittagstischBarrel.fetch(dayOfWeek);
 				break;
 			default:

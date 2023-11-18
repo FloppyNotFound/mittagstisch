@@ -22,6 +22,10 @@ const getLunch = async (dayOfWeek: number): Promise<Lunch | undefined> => {
 };
 
 const toLunch = (html: string, dayOfWeek: number): Lunch | undefined => {
+	if ([0, 6].includes(dayOfWeek)) {
+		return void 0;
+	}
+
 	const dayOfWeekBic = WeekOfDayMap[dayOfWeek];
 
 	const dom = parse(html);
