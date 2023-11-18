@@ -3,6 +3,7 @@ import { Restaurant } from './models/restaurant.interface';
 import bicLunch from './restaurants/bistro-bic';
 import geschmackssacheLunch from './restaurants/geschmackssache';
 import bistroAmKanalLunch from './restaurants/bistro-am-kanal';
+import cafeteriaM9Lunch from './restaurants/cafeteria-m9';
 
 const restaurants: Restaurant[] = [
 	{
@@ -13,6 +14,9 @@ const restaurants: Restaurant[] = [
 	},
 	{
 		getLunch: bistroAmKanalLunch,
+	},
+	{
+		getLunch: cafeteriaM9Lunch,
 	},
 ];
 
